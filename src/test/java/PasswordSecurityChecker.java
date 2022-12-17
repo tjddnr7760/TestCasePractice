@@ -1,5 +1,9 @@
 public class PasswordSecurityChecker {
+
     public SecurityLevel check(String word) {
+        if(word == null) {
+            return SecurityLevel.INVALID;
+        }
         if (isShort(word) || !containsNumber(word)) {
             return SecurityLevel.NORMAL;
         }

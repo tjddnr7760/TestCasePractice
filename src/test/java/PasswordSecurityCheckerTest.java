@@ -7,20 +7,20 @@
  *  *
  *  *  규칙 :   1. 길이가 8글자 이상
  *  *          2. 0 ~ 9 사이의 숫자를 포함
- *  *          3. 대문자 포함
+                *  *          3. 대문자 포함
  *  *
  *  *  판단 :   1. 3개의 규칙을 모두 충족하면 암호는 강함이다.
  *  *          2. 2개의 규칙을 충족하면 암호는 약함이다.
- *
+                *
  */
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PasswordSecurityCheckerTest {
-    private PasswordSecurityChecker checker = new PasswordSecurityChecker();
+        public class PasswordSecurityCheckerTest {
+            private PasswordSecurityChecker checker = new PasswordSecurityChecker();
 
-    private void assertStrength(String password, SecurityLevel expStr) {
-        SecurityLevel level = checker.check(password);
+            private void assertStrength(String password, SecurityLevel expStr) {
+                SecurityLevel level = checker.check(password);
         assertEquals(expStr, level);
     }
 
@@ -39,5 +39,10 @@ public class PasswordSecurityCheckerTest {
     @Test
     void is_passAllTestExceptNumberConditions_Normal() {
         assertStrength("ab!@ABqwer", SecurityLevel.NORMAL);
+    }
+
+    @Test
+    void nullInput_INVALID() {
+        assertStrength(null, SecurityLevel.INVALID);
     }
 }
