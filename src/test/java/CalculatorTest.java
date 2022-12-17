@@ -6,5 +6,6 @@ public class CalculatorTest {
     void plus() {
         int result = Calculator.plus(1, 2);
         assertEquals(3, result);
+        assertEquals(5, Calculator.plus(1, 4));
     }
 }
