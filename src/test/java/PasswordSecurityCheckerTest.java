@@ -17,30 +17,27 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PasswordSecurityCheckerTest {
+    private PasswordSecurityChecker checker = new PasswordSecurityChecker();
+
+    private void assertStrength(String password, SecurityLevel expStr) {
+        SecurityLevel level = checker.check(password);
+        assertEquals(expStr, level);
+    }
+
     @Test
     void is_AllTestPassed_Strong() {
-        PasswordSecurityChecker checker = new PasswordSecurityChecker();
-        SecurityLevel level = checker.check("ab12!@AB");
-        assertEquals(SecurityLevel.STRONG, level);
-
-        SecurityLevel second_level = checker.check("abc1!Add");
-        assertEquals(SecurityLevel.STRONG, second_level);
+        assertStrength("ab12!@AB", SecurityLevel.STRONG);
+        assertStrength("abc1!Add", SecurityLevel.STRONG);
     }
 
     @Test
     void is_passAllTestExceptLength_Normal() {
-        PasswordSecurityChecker checker = new PasswordSecurityChecker();
-        SecurityLevel level = checker.check("ab12!@A");
-        assertEquals(SecurityLevel.NORMAL, level);
-
-        SecurityLevel second_level = checker.check("Ab12!c");
-        assertEquals(SecurityLevel.NORMAL, second_level);
+        assertStrength("ab12!@A", SecurityLevel.NORMAL);
+        assertStrength("Ab12!c", SecurityLevel.NORMAL);
     }
 
     @Test
     void is_passAllTestExceptNumberConditions_Normal() {
-        PasswordSecurityChecker checker = new PasswordSecurityChecker();
-        SecurityLevel level = checker.check("ab!@ABqwer");
-        assertEquals(SecurityLevel.NORMAL, level);
+        assertStrength("ab!@ABqwer", SecurityLevel.NORMAL);
     }
 }
