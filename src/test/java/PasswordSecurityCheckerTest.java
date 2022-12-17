@@ -16,9 +16,11 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PasswordStrengthMeter {
+public class PasswordSecurityCheckerTest {
     @Test
-    void run(){
-
+    void is_AllTestPassed_Strong() {
+        PasswordSecurityChecker checker = new PasswordSecurityChecker();
+        SecurityLevel level = checker.check("ab12!@AB");
+        assertEquals(SecurityLevel.STRONG, level);
     }
 }
