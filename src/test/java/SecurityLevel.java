@@ -1,3 +1,4 @@
 public enum SecurityLevel {
-    STRONG;
+    STRONG,
+    NORMAL;
 }
