@@ -45,4 +45,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     void nullInput_INVALID() {
         assertStrength(null, SecurityLevel.INVALID);
     }
+
+    @Test
+    void emptyInput_INVALID() {
+        assertStrength("", SecurityLevel.INVALID);
+    }
 }

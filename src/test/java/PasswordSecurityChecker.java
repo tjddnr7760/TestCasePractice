@@ -1,7 +1,7 @@
 public class PasswordSecurityChecker {
 
     public SecurityLevel check(String word) {
-        if(word == null) {
+        if(word == null || word.isEmpty()) {
             return SecurityLevel.INVALID;
         }
         if (isShort(word) || !containsNumber(word)) {
