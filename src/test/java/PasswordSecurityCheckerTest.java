@@ -22,5 +22,7 @@ public class PasswordSecurityCheckerTest {
         PasswordSecurityChecker checker = new PasswordSecurityChecker();
         SecurityLevel level = checker.check("ab12!@AB");
         assertEquals(SecurityLevel.STRONG, level);
+        SecurityLevel second_level = checker.check("abc1!Add");
+        assertEquals(SecurityLevel.STRONG, second_level);
     }
 }
