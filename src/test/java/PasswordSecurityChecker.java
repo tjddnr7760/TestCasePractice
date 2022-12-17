@@ -1,13 +1,22 @@
 public class PasswordSecurityChecker {
 
     public SecurityLevel check(String word) {
-        if(word == null || word.isEmpty()) {
+        if (word == null || word.isBlank()) {
             return SecurityLevel.INVALID;
         }
+
+        if (!containsUppercaseLetters(word)) {
+            return SecurityLevel.NORMAL;
+        }
+
         if (isShort(word) || !containsNumber(word)) {
             return SecurityLevel.NORMAL;
         }
         return SecurityLevel.STRONG;
+    }
+
+    private boolean containsUppercaseLetters(String word) {
+        return word.chars().anyMatch(Character::isUpperCase);
     }
 
     private boolean isShort(String word) {
@@ -15,15 +24,6 @@ public class PasswordSecurityChecker {
     }
 
     private boolean containsNumber(String word) {
-        for (char ch : word.toCharArray()) {
-            if (isDigit(ch)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isDigit(char ch) {
-        return ch >= '0' && ch <= '9';
+        return word.chars().anyMatch(Character::isDigit);
     }
 }

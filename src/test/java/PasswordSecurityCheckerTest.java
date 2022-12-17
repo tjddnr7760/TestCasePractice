@@ -16,11 +16,11 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-        public class PasswordSecurityCheckerTest {
-            private PasswordSecurityChecker checker = new PasswordSecurityChecker();
+public class PasswordSecurityCheckerTest {
+    private PasswordSecurityChecker checker = new PasswordSecurityChecker();
 
-            private void assertStrength(String password, SecurityLevel expStr) {
-                SecurityLevel level = checker.check(password);
+    private void assertStrength(String password, SecurityLevel expStr) {
+        SecurityLevel level = checker.check(password);
         assertEquals(expStr, level);
     }
 
@@ -49,5 +49,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Test
     void emptyInput_INVALID() {
         assertStrength("", SecurityLevel.INVALID);
+    }
+
+    @Test
+    void is_passAllTestExceptUppercase() {
+        assertStrength("ab12!@df", SecurityLevel.NORMAL);
     }
 }
