@@ -9,6 +9,18 @@
  *
  */
 
-public class PaymentExpirationCalculatorTest {
+import java.time.LocalDate;
 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class PaymentExpirationCalculatorTest {
+    @Test
+    void pay_10Kwon_AfterMonth_ExpirationDay() {
+        PaymentExpirationCalculator cal = new PaymentExpirationCalculator();
+        int moneyAmount = 10000;
+        LocalDate date = LocalDate.of(2019, 3, 1);
+        LocalDate result = cal.expiaryDate(date, moneyAmount);
+        assertEquals(LocalDate.of(2019,4,1), result);
+    }
 }
