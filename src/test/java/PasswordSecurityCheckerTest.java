@@ -68,4 +68,9 @@ public class PasswordSecurityCheckerTest {
     void is_OneCondition_Number_Weak() {
         assertStrength("123", SecurityLevel.WEAK);
     }
+
+    @Test
+    void is_OneCondition_Uppercase_Weak() {
+        assertStrength("UABCDE", SecurityLevel.WEAK);
+    }
 }

@@ -6,14 +6,18 @@ public class PasswordSecurityChecker {
         }
 
         boolean containsUppercase = containsUppercaseLetters(word);
-        boolean shortcase = isShort(word);
+        boolean lengthcodition = isLength(word);
         boolean containsNumber = containsNumber(word);
 
-        if(!shortcase && !containsUppercase && !containsNumber) {
+        if(lengthcodition && !containsUppercase && !containsNumber) {
             return SecurityLevel.WEAK;
         }
 
-        if(shortcase && !containsUppercase && containsNumber) {
+        if(!lengthcodition && !containsUppercase && containsNumber) {
+            return SecurityLevel.WEAK;
+        }
+
+        if(!lengthcodition && containsUppercase && !containsNumber) {
             return SecurityLevel.WEAK;
         }
 
@@ -21,7 +25,7 @@ public class PasswordSecurityChecker {
             return SecurityLevel.NORMAL;
         }
 
-        if (isShort(word)) {
+        if (!isLength(word)) {
             return SecurityLevel.NORMAL;
         }
 
@@ -36,8 +40,8 @@ public class PasswordSecurityChecker {
         return word.chars().anyMatch(Character::isUpperCase);
     }
 
-    private boolean isShort(String word) {
-        return word.length() < 8;
+    private boolean isLength(String word) {
+        return word.length() >= 8;
     }
 
     private boolean containsNumber(String word) {
