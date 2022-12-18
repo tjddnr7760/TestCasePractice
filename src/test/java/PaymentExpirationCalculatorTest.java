@@ -22,5 +22,9 @@ public class PaymentExpirationCalculatorTest {
         LocalDate date = LocalDate.of(2019, 3, 1);
         LocalDate result = cal.expiaryDate(date, moneyAmount);
         assertEquals(LocalDate.of(2019,4,1), result);
+
+        LocalDate date2 = LocalDate.of(2019,5,5);
+        LocalDate result2 = cal.expiaryDate(date2, moneyAmount);
+        assertEquals(LocalDate.of(2019,6,5), result2);
     }
 }
