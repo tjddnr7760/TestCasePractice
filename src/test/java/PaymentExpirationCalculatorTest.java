@@ -15,16 +15,25 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PaymentExpirationCalculatorTest {
+    private static final PaymentExpirationCalculator cal = new PaymentExpirationCalculator();
+
+    private void expectedExpiryDate(LocalDate startDate, int moneyAmount, LocalDate endDate) {
+        LocalDate date = cal.expiaryDate(startDate, moneyAmount);
+        assertEquals(endDate, date);
+    }
+
     @Test
     void pay_10Kwon_AfterMonth_ExpirationDay() {
-        PaymentExpirationCalculator cal = new PaymentExpirationCalculator();
-        int moneyAmount = 10000;
-        LocalDate date = LocalDate.of(2019, 3, 1);
-        LocalDate result = cal.expiaryDate(date, moneyAmount);
-        assertEquals(LocalDate.of(2019,4,1), result);
+        expectedExpiryDate(
+                LocalDate.of(2019,3,1),
+                10_000,
+                LocalDate.of(2019,4,1)
+        );
 
-        LocalDate date2 = LocalDate.of(2019,5,5);
-        LocalDate result2 = cal.expiaryDate(date2, moneyAmount);
-        assertEquals(LocalDate.of(2019,6,5), result2);
+        expectedExpiryDate(
+                LocalDate.of(2019,5,5),
+                10_000,
+                LocalDate.of(2019,6,5)
+        );
     }
 }
