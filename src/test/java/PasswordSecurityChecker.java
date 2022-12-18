@@ -13,6 +13,10 @@ public class PasswordSecurityChecker {
             return SecurityLevel.WEAK;
         }
 
+        if(shortcase && !containsUppercase && containsNumber) {
+            return SecurityLevel.WEAK;
+        }
+
         if (!containsUppercaseLetters(word)) {
             return SecurityLevel.NORMAL;
         }

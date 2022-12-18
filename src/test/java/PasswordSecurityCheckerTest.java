@@ -14,6 +14,9 @@
                 *
  */
 import org.junit.jupiter.api.Test;
+
+import java.security.Security;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PasswordSecurityCheckerTest {
@@ -59,5 +62,10 @@ public class PasswordSecurityCheckerTest {
     @Test
     void is_OneCondition_Length_Weak() {
         assertStrength("abdefghi", SecurityLevel.WEAK);
+    }
+
+    @Test
+    void is_OneCondition_Number_Weak() {
+        assertStrength("123", SecurityLevel.WEAK);
     }
 }
