@@ -1,35 +1,28 @@
 public class PasswordSecurityChecker {
-
     public SecurityLevel check(String word) {
         if (word == null || word.isBlank()) {
             return SecurityLevel.INVALID;
         }
 
-        boolean containsUppercase = containsUppercaseLetters(word);
-        boolean lengthcodition = isLength(word);
-        boolean containsNumber = containsNumber(word);
+        int conditionCounts = 0;
 
-        if(lengthcodition && !containsUppercase && !containsNumber) {
+        if(containsUppercaseLetters(word)) {
+            conditionCounts++;
+        }
+
+        if(isLength(word)) {
+            conditionCounts++;
+        }
+
+        if(containsNumber(word)) {
+            conditionCounts++;
+        }
+
+        if(conditionCounts == 1) {
             return SecurityLevel.WEAK;
         }
 
-        if(!lengthcodition && !containsUppercase && containsNumber) {
-            return SecurityLevel.WEAK;
-        }
-
-        if(!lengthcodition && containsUppercase && !containsNumber) {
-            return SecurityLevel.WEAK;
-        }
-
-        if (!containsUppercaseLetters(word)) {
-            return SecurityLevel.NORMAL;
-        }
-
-        if (!isLength(word)) {
-            return SecurityLevel.NORMAL;
-        }
-
-        if (!containsNumber(word)) {
+        if (conditionCounts == 2) {
             return SecurityLevel.NORMAL;
         }
 
