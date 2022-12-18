@@ -18,7 +18,7 @@ public class PasswordSecurityChecker {
             conditionCounts++;
         }
 
-        if(conditionCounts == 1) {
+        if(conditionCounts <= 1) {
             return SecurityLevel.WEAK;
         }
 
