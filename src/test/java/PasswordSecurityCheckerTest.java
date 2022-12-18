@@ -52,7 +52,12 @@ public class PasswordSecurityCheckerTest {
     }
 
     @Test
-    void is_passAllTestExceptUppercase() {
+    void is_passAllTestExceptUppercase_Normal() {
         assertStrength("ab12!@df", SecurityLevel.NORMAL);
+    }
+
+    @Test
+    void is_OneCondition_Length_Weak() {
+        assertStrength("abdefghi", SecurityLevel.WEAK);
     }
 }

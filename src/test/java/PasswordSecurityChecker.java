@@ -5,13 +5,26 @@ public class PasswordSecurityChecker {
             return SecurityLevel.INVALID;
         }
 
+        boolean containsUppercase = containsUppercaseLetters(word);
+        boolean shortcase = isShort(word);
+        boolean containsNumber = containsNumber(word);
+
+        if(!shortcase && !containsUppercase && !containsNumber) {
+            return SecurityLevel.WEAK;
+        }
+
         if (!containsUppercaseLetters(word)) {
             return SecurityLevel.NORMAL;
         }
 
-        if (isShort(word) || !containsNumber(word)) {
+        if (isShort(word)) {
             return SecurityLevel.NORMAL;
         }
+
+        if (!containsNumber(word)) {
+            return SecurityLevel.NORMAL;
+        }
+
         return SecurityLevel.STRONG;
     }
 
