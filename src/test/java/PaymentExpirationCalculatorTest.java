@@ -25,12 +25,18 @@ public class PaymentExpirationCalculatorTest {
     @Test
     void pay_10Kwon_AfterMonth_ExpirationDay() {
         expectedExpiryDate(
-                LocalDate.of(2019,3,1), 10_000,
+                PayData.builder()
+                        .paymentDay(LocalDate.of(2019,3,1))
+                        .moneyAmount(10_000)
+                        .build(),
                 LocalDate.of(2019,4,1)
         );
 
         expectedExpiryDate(
-                LocalDate.of(2019,5,5), 10_000,
+                PayData.builder()
+                        .paymentDay(LocalDate.of(2019,5,5))
+                        .moneyAmount(10_000)
+                        .build(),
                 LocalDate.of(2019,6,5)
         );
     }
@@ -38,23 +44,33 @@ public class PaymentExpirationCalculatorTest {
     @Test
     void exception_DueDate_Expiry_NotEqual() {
         expectedExpiryDate(
-                LocalDate.of(2019,1,31), 10_000,
+                PayData.builder()
+                        .paymentDay(LocalDate.of(2019,1,31))
+                        .moneyAmount(10_000)
+                        .build(),
                 LocalDate.of(2019,2,28)
         );
 
         expectedExpiryDate(
-                LocalDate.of(2019,3,1), 10_000,
+                PayData.builder()
+                        .paymentDay(LocalDate.of(2019,3,1))
+                        .moneyAmount(10_000)
+                        .build(),
                 LocalDate.of(2019,4,1)
         );
 
         expectedExpiryDate(
-                LocalDate.of(2020,1,31), 10_000,
+                PayData.builder()
+                        .paymentDay(LocalDate.of(2020,1,31))
+                        .moneyAmount(10_000)
+                        .build(),
                 LocalDate.of(2020,2,29)
         );
     }
 
-    private void expectedExpiryDate(LocalDate startDate, int moneyAmount, LocalDate endDate) {
-        LocalDate date = cal.expiaryDate(startDate, moneyAmount);
+    private void expectedExpiryDate(PayData paydata, LocalDate endDate) {
+        PaymentExpirationCalculator cal = new PaymentExpirationCalculator();
+        LocalDate date = cal.expiaryDate(paydata);
         assertEquals(endDate, date);
     }
 }
