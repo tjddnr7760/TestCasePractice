@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class PaymentExpirationCalculator {
-    public LocalDate expiaryDate(LocalDate date, int moneyAmount) {
-        return date.plusMonths(1);
+    public LocalDate expiaryDate(PayData paydata) {
+        return paydata.getPaymentDay().plusMonths(1);
     }
 }
