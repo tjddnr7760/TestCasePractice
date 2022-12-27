@@ -23,7 +23,6 @@ public class StaticFactoryMethod {
         return new StaticFactoryMethod(inform1, inform2);
     }
 }
-
 class Main {
     void example(int a, int b) {
         StaticFactoryMethod staticfactorymethod = StaticFactoryMethod.create(a, b);
@@ -52,9 +51,34 @@ class StaticFactoryMethod2 {
         return new StaticFactoryMethod2(a, b);
     }
 }
-
 class Main2 {
     StaticFactoryMethod2 factory = StaticFactoryMethod2.create(1, 2);
+}
+
+// 세번째 연습
+class StaticFactoryMethod3 {
+    private int a;
+    private int b;
+
+    private StaticFactoryMethod3(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public static StaticFactoryMethod3 create(int a, int b) {
+        return new StaticFactoryMethod3(a, b);
+    }
+}
+class Main3 {
+    StaticFactoryMethod3 factory3 = StaticFactoryMethod3.create(1, 2);
 }
 
 // 빌더 클래스의 정적 팩터리 메서드를 호출하는 경우
@@ -97,8 +121,7 @@ class PayData {
         }
     }
 }
-
-class Main3 {
+class Main4 {
     public void builderPractice() {
         PayData paydata = PayData.builder()
                 .createMoney(10_000)
@@ -148,10 +171,59 @@ class PayData2 {
         }
     }
 }
-
-class Main4 {
+class Main5 {
     PayData2 paydata = PayData2.builder()
             .createMoneyAmount(10_000)
             .createLocalDate(LocalDate.of(1000,2,2))
+            .build();
+}
+
+// 세번째 연습
+class PayData3 {
+    private int moneyAmount;
+    private LocalDate localdate;
+
+    private PayData3() {
+
+    }
+
+    public int getMoneyAmount() {
+        return moneyAmount;
+    }
+
+    public LocalDate getLocaldate() {
+        return localdate;
+    }
+
+    public static Builder3 builder() {
+        return new Builder3();
+    }
+
+    public static class Builder3 {
+        PayData3 paydata3 = new PayData3();
+
+        private Builder3() {
+
+        }
+
+        public Builder3 createMoneyAmount(int moneyAmount) {
+            paydata3.moneyAmount = moneyAmount;
+            return this;
+        }
+
+        public Builder3 createLocalDate(LocalDate localdate) {
+            paydata3.localdate = localdate;
+            return this;
+        }
+
+        public PayData3 build() {
+            return paydata3;
+        }
+    }
+}
+class Main6 {
+    PayData3 paydata3 = PayData3.builder()
+            .createMoneyAmount(10_000)
+            .createLocalDate(LocalDate.of(2020,1,1))
             .build();
 }
