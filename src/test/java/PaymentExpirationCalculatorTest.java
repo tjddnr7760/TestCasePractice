@@ -78,6 +78,24 @@ public class PaymentExpirationCalculatorTest {
                         .build(),
                 LocalDate.of(2019,3,31)
         );
+
+        expectedExpiryDate(
+                PayData.builder()
+                        .inputFirstBillingDate(LocalDate.of(2019,1,30))
+                        .inputMoneyAmount(10_000)
+                        .inputLocalDate(LocalDate.of(2019,2,28))
+                        .build(),
+                LocalDate.of(2019, 3, 30)
+        );
+
+        expectedExpiryDate(
+                PayData.builder()
+                        .inputFirstBillingDate(LocalDate.of(2019,5,31))
+                        .inputLocalDate(LocalDate.of(2019,6,30))
+                        .inputMoneyAmount(10_000)
+                        .build(),
+                LocalDate.of(2019,7,31)
+        );
     }
 
     private void expectedExpiryDate(PayData paydata, LocalDate endDate) {
