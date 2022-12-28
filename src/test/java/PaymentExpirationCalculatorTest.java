@@ -23,21 +23,21 @@ public class PaymentExpirationCalculatorTest {
     private static final PaymentExpirationCalculator cal = new PaymentExpirationCalculator();
 
     @Test
-    void pay_10Kwon_AfterMonth_ExpirationDay() {
+    void pay_10Kwon_After_Month_ExpirationDay() {
         expectedExpiryDate(
                 PayData.builder()
-                        .paymentDay(LocalDate.of(2019,3,1))
-                        .moneyAmount(10_000)
+                        .inputMoneyAmount(10_000)
+                        .inputLocalDate(LocalDate.of(2021,4,5))
                         .build(),
-                LocalDate.of(2019,4,1)
+                LocalDate.of(2021,5, 5)
         );
 
         expectedExpiryDate(
                 PayData.builder()
-                        .paymentDay(LocalDate.of(2019,5,5))
-                        .moneyAmount(10_000)
+                        .inputMoneyAmount(10_000)
+                        .inputLocalDate(LocalDate.of(2022,6,7))
                         .build(),
-                LocalDate.of(2019,6,5)
+                LocalDate.of(2022,7,7)
         );
     }
 
@@ -45,32 +45,44 @@ public class PaymentExpirationCalculatorTest {
     void exception_DueDate_Expiry_NotEqual() {
         expectedExpiryDate(
                 PayData.builder()
-                        .paymentDay(LocalDate.of(2019,1,31))
-                        .moneyAmount(10_000)
+                        .inputMoneyAmount(10_000)
+                        .inputLocalDate(LocalDate.of(2019,1,31))
                         .build(),
                 LocalDate.of(2019,2,28)
         );
 
         expectedExpiryDate(
                 PayData.builder()
-                        .paymentDay(LocalDate.of(2019,3,1))
-                        .moneyAmount(10_000)
+                        .inputMoneyAmount(10_000)
+                        .inputLocalDate(LocalDate.of(2019,5,31))
                         .build(),
-                LocalDate.of(2019,4,1)
+                LocalDate.of(2019,6,30)
         );
 
         expectedExpiryDate(
                 PayData.builder()
-                        .paymentDay(LocalDate.of(2020,1,31))
-                        .moneyAmount(10_000)
+                        .inputMoneyAmount(10_000)
+                        .inputLocalDate(LocalDate.of(2020,1, 31))
                         .build(),
                 LocalDate.of(2020,2,29)
         );
     }
 
+    @Test
+    void firstBilling_ExpiryDate_NotEquals_PayMore() {
+        expectedExpiryDate(
+                PayData.builder()
+                        .inputFirstBillingDate(LocalDate.of(2019,1,31))
+                        .inputMoneyAmount(10_000)
+                        .inputLocalDate(LocalDate.of(2019,2,28))
+                        .build(),
+                LocalDate.of(2019,3,31)
+        );
+    }
+
     private void expectedExpiryDate(PayData paydata, LocalDate endDate) {
         PaymentExpirationCalculator cal = new PaymentExpirationCalculator();
-        LocalDate date = cal.expiaryDate(paydata);
-        assertEquals(endDate, date);
+        LocalDate expDate = cal.expiaryDate(paydata);
+        assertEquals(expDate, endDate);
     }
 }
