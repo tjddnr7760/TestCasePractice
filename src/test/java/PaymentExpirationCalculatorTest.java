@@ -98,6 +98,17 @@ public class PaymentExpirationCalculatorTest {
         );
     }
 
+    @Test
+    void pay_20KwonMore_After__ExpirationDay() {
+        expectedExpiryDate(
+                PayData.builder()
+                        .inputLocalDate(LocalDate.of(2019,3,1))
+                        .inputMoneyAmount(20_000)
+                        .build(),
+                LocalDate.of(2019,5,1)
+        );
+    }
+
     private void expectedExpiryDate(PayData paydata, LocalDate endDate) {
         PaymentExpirationCalculator cal = new PaymentExpirationCalculator();
         LocalDate expDate = cal.expiaryDate(paydata);
