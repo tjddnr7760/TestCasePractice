@@ -1,7 +1,7 @@
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.assertj.core.api.InstanceOfAssertFactories;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -56,5 +56,22 @@ public class AssertjPractice {
             //에러 발생시 AssertError throw하는 메서드이다. AbstractAssert 추상클래스 구현시 오버라이딩 해서
             //에러 출력 메서드 구현해주면 된다.
         }
+    }
+
+    @DisplayName("예외처리 방법")
+    @Test
+    void test_assertThatThrownBy() {
+        assertThatThrownBy(() -> divide(10, 0))
+                .isExactlyInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> divide(15, 0))
+                .isInstanceOf(RuntimeException.class);
+    }
+
+    private int divide(int divided, int divisor) {
+        if (divisor == 0) {
+            throw new IllegalArgumentException();
+        }
+        return divided / divisor;
     }
 }
