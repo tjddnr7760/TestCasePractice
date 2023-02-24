@@ -1,6 +1,7 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.core.api.InstanceOfAssertFactories;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -40,5 +41,20 @@ public class AssertjPractice {
         System.out.println("1 " + assertThat(list).contains(1));
         System.out.println("2 " + assertThat(list).asList().contains(1));
         //asList 를 굳이 사용하지 않아도 되지만 가독성을 위해 사용한다고 이해한다.
+    }
+
+    @DisplayName("assertionError 메서드 예시")
+    @Test
+    void test_assertionError() {
+        //given
+
+        //when, then
+        try {
+            //assertThat(actual).isEqualTo(expected);
+        } catch (AssertionError e) {
+            //Assertions.assertionError(e.getMessage());
+            //에러 발생시 AssertError throw하는 메서드이다. AbstractAssert 추상클래스 구현시 오버라이딩 해서
+            //에러 출력 메서드 구현해주면 된다.
+        }
     }
 }
