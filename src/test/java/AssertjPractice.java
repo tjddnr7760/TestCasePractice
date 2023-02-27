@@ -61,14 +61,28 @@ public class AssertjPractice {
     @DisplayName("예외처리 방법")
     @Test
     void test_assertThatThrownBy() {
-        assertThatThrownBy(() -> divide(10, 0))
+        assertThatThrownBy(() -> just_divide(10, 0))
+                .isExactlyInstanceOf(Exception.class);
+
+        assertThatThrownBy(() -> just_divide(15, 0))
+                .isInstanceOf(Exception.class);
+
+        assertThatThrownBy(() -> runtime_divide(10, 0))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
 
-        assertThatThrownBy(() -> divide(15, 0))
+        assertThatThrownBy(() -> runtime_divide(15, 0))
                 .isInstanceOf(RuntimeException.class);
     }
 
-    private int divide(int divided, int divisor) {
+    // Exception이 런타임 에러가 아니기때문에 컴파일시 throws가 없으면 컴파일 오류가 난다.
+    private int just_divide(int divided, int divisor) throws Exception {
+        if (divisor == 0) {
+            throw new Exception();
+        }
+        return divided / divisor;
+    }
+    // Exception이 런타임 에러임으로 컴파일시 오류는 나지 않고 실행시 오류가 발생된다.
+    private int runtime_divide(int divided, int divisor) {
         if (divisor == 0) {
             throw new IllegalArgumentException();
         }
