@@ -4,8 +4,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 import java.util.List;
 
 public class AssertjPractice {
@@ -81,11 +85,28 @@ public class AssertjPractice {
         }
         return divided / divisor;
     }
+
     // Exception이 런타임 에러임으로 컴파일시 오류는 나지 않고 실행시 오류가 발생된다.
     private int runtime_divide(int divided, int divisor) {
         if (divisor == 0) {
             throw new IllegalArgumentException();
         }
         return divided / divisor;
+    }
+
+    @DisplayName("Arguments 인터페이스 구현하여 파라미터화 테스트")
+    @ParameterizedTest
+    @MethodSource("argumentsProvider")
+    void test_Parameterized_Test(String str, int expect) {
+        assertThat(str.length()).isEqualTo(expect);
+    }
+
+    static Stream<Arguments> argumentsProvider() {
+        return Stream.of(
+                Arguments.of("abc", 3),
+                Arguments.of("be", 2),
+                Arguments.of("kkkk", 4),
+                Arguments.of("arrer", 5)
+        );
     }
 }
