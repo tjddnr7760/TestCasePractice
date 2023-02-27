@@ -5,8 +5,7 @@ import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -94,7 +93,7 @@ public class AssertjPractice {
         return divided / divisor;
     }
 
-    @DisplayName("Arguments 인터페이스 구현하여 파라미터화 테스트")
+    @DisplayName("Arguments 인터페이스 구현하여 사용하여 파라미터화 테스트")
     @ParameterizedTest
     @MethodSource("argumentsProvider")
     void test_Parameterized_Test(String str, int expect) {
@@ -109,4 +108,34 @@ public class AssertjPractice {
                 Arguments.of("arrer", 5)
         );
     }
+
+    @DisplayName("MethodSource 애너테이션 사용법")
+    @ParameterizedTest
+    @MethodSource("factory")
+    void test_MethodSource(int input) {
+        assertThat(input).isGreaterThan(0);
+    }
+
+    static int[] factory() {
+        return new int[]{1, 2, 3, 4, 5};
+    }
+
+    @DisplayName("CsvSource 애너테이션 사용법")
+    @ParameterizedTest
+    @CsvSource({
+            "apple, 5",
+            "banana, 6",
+            "orange, 6"
+    })
+    void test_CsvSource(String fruit, int length) {
+        assertThat(fruit.length()).isEqualTo(length);
+    }
+
+    @DisplayName("NullSource 애너테이션 사용법")
+    @ParameterizedTest
+    @NullSource
+    void test_NullSource(String arg) {
+        assertThat(arg).isNull();
+    }
 }
+
